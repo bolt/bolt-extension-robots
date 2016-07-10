@@ -24,6 +24,7 @@
     },
     "extra": {
         "bolt-class": "Bolt\\Extension\\Bolt\\Robots\\RobotsExtension",
+        "bolt-icon": "icon-robots.txt.png",
         "branch-alias": {
             "dev-master": "3.0.x-dev"
         }
