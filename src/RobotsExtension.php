@@ -35,7 +35,7 @@ class RobotsExtension extends SimpleExtension
             $rules = $app['cache']->fetch('bolt.robots.txt');
         }
         if ($rules === false) {
-            $rules = $this->compileRobotsTxt($config['rules']);
+            $rules = $this->compileRobotsTxt($config['rules'], $config['sitemap']);
             $app['cache']->save('bolt.robots.txt', $rules, 3600);
         }
 
@@ -44,10 +44,11 @@ class RobotsExtension extends SimpleExtension
 
     /**
      * @param array $rules
+     * @param boolean|string $sitemap
      *
      * @return Response
      */
-    protected function compileRobotsTxt(array $rules)
+    protected function compileRobotsTxt(array $rules, $sitemap)
     {
         $render = '';
         foreach ($rules as $key => $value) {
@@ -57,6 +58,10 @@ class RobotsExtension extends SimpleExtension
                 $render .= sprintf("Disallow: %s\n", (string) $disallow);
             }
             $render .= "\n";
+        }
+
+        if ($sitemap !== false) {
+            $render .= sprintf("Sitemap: %s\n", (string) $sitemap);
         }
 
         $response = new Response($render);
@@ -86,6 +91,7 @@ class RobotsExtension extends SimpleExtension
             'enabled' => true,
             'cache'   => true,
             'rules'   => [],
+            'sitemap' => false
         ];
     }
 }
