@@ -13,3 +13,6 @@ cache: true
 #        -
 #    BadBot:
 #        - /
+
+## Absolute path to XML sitemap file.
+# sitemap: http://www.example.com/sitemap.xml
